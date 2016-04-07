@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 class rea::selinux {
     case $::operatingsystem {
         'CentOS', 'RedHat': {

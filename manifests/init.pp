@@ -1,4 +1,4 @@
-
+class rea {
 # attempt here to create parameters that work on diff distros
     include rea::users
     include rea::sudo
@@ -7,9 +7,9 @@
     include rea::firewall
     include rea::passanger
     include rea::simple_sinatra_app
-    #include rea::global
-   # include rea::params
-
+    include rea::global
+    include rea::params
+    include rea::service
 class rea ($docroot = undef,
  $httpd_user    = $rea::params::httpd_user,
  $httpd_group   = $rea::params::httpd_group,
@@ -22,4 +22,5 @@ class rea ($docroot = undef,
 
  
 
+}
 }

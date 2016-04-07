@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 class rea::sudo {
     include rea::users
     file {

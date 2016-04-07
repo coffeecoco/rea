@@ -1,9 +1,3 @@
-
-
-
-
-
-
 class rea::firewall {
     FILE {
         owner   => 'root',

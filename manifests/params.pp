@@ -1,4 +1,3 @@
-
 class rea::params {
  case $::osfamily {
   "RedHat": {

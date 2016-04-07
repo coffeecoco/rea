@@ -1,4 +1,4 @@
 require 'sinatra'
 get '/' do
-  "Hello World! Sorry for the delay  -DS"
+  "Hello World! REA is the best!!"
 end

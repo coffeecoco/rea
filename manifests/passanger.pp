@@ -1,9 +1,3 @@
-
-
-
-
-
-
 class rea::passanger {
     FILE {
         owner   => 'root',
@@ -14,6 +8,13 @@ class rea::passanger {
         'CentOS', 'RedHat': {
             $webserver = 'httpd'
 
+            file {
+                '/etc/yum.repos.d/passanger.repo':
+                    ensure  => present,
+                    mode    => '0600',
+                    source  => 'puppet:///modules/rea/repo/passenger.repo',
+		   notify   =>  Package["mod_passenger"],
+                 }
             package {
                 "$webserver":
                     ensure  => latest,
@@ -31,11 +32,6 @@ class rea::passanger {
                     provider    => 'gem';
             }
             
-            service {
-                'httpd':
-                    ensure  => running,
-                    require => Package["$webserver"];
-            }
              exec {
                 'add_httpd_to_startup':
                     command     => '/sbin/chkconfig httpd on',

@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 class rea::sshd {
     case $::operatingsystem {
         'CentOS', 'RedHat': {

@@ -1,11 +1,4 @@
 #password: coffee
-
-
-
-
-
-
-
 class rea::users {
     group {
         'coffeecoco':

@@ -1,46 +1,42 @@
-
-
-
-
-
-
-
-
 class rea::simple_sinatra_app {
-    FILE {
+FILE {
         owner   =>  'root',
         group   =>  'root',
     }
     
     include rea::passanger
     
-    exec {
+exec {
         'git_clone_sinatra-app':
             command     =>  '/usr/bin/git clone https://github.com/tnh/simple-sinatra-app.git /opt/simple-sinatra-app',
-            refreshonly => true,
+#            refreshonly => true,
             require     => Package['git'],
-            notify      => Exec['bundle_install_gem'];
+            notify      => Exec['bundle_install_gem'],
+	   creates      => "/opt/simple-sinatra-app/Gemfile",
    }    
-    file {
+
+file {
                 '/opt/simple-sinatra-app/helloworld.rb':
                     ensure  => present,
                     owner   => 'root',
                     group   => 'root',
                     mode    => '0644',
-                    source  => 'puppet:///modules/rea/msg/helloworld.rb';
-                    
-            }     
+                    source  => 'puppet:///modules/rea/msg/helloworld.rb',
+#                    notify  => Service["$httpd_svc"];
+		    notify  => Class['rea::service'],
+
+     }     
     notify {"[+] git clone ":}
     
-         exec {
+exec {
         'bundle_install_gem':
-            command     => '/usr/bin/bundle install --gemfile /opt/simple-sinatra-app/Gemfile',
+            command     => '/usr/local/bin/bundle install --gemfile /opt/simple-sinatra-app/Gemfile',
             refreshonly => true,
             require     => [Package['bundle'],Exec['git_clone_sinatra-app']];
     }
      notify {"[+] bundle install gemfile ":}   
     
-    file {
+file {
         '/var/www/simple-sinatra-app':
             ensure  => directory,
             mode    => '0755',
@@ -55,7 +51,7 @@ class rea::simple_sinatra_app {
     }
      notify {"[+] symlink ":}               
     
-    case $::operatingsystem {
+case $::operatingsystem {
         'CentOS', 'RedHat': {
             file {
                 '/etc/httpd/conf.d/rea.conf':
