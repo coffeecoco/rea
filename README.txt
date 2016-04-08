@@ -31,5 +31,5 @@ small local issue with gem install bundler
 should add git pull updater if files exist and handle errors
 
 Tested on:
-CentOS 6.5 i686 
-Ubuntu 12.04 LTS x64
+CentOS 6.5/7  
+Ubuntu 12.04 LTS 
